@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements ILogView{
     private Fragment[] fragments;
     private String[] mTitles = new String[] {"LOG","SORT"};
     private String fileName = "original.txt";
-    private CountDownTimer removeTimer = new CountDownTimer(10000,1000) {
+    private CountDownTimer removeTimer = new CountDownTimer(30000,1000) {
         @Override
         public void onTick(long l) {
         }
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements ILogView{
             addTimer.start();
         }
     };
-    private CountDownTimer addTimer = new CountDownTimer(10000,1000) {
+    private CountDownTimer addTimer = new CountDownTimer(30000,1000) {
         @Override
         public void onTick(long l) {
         }
