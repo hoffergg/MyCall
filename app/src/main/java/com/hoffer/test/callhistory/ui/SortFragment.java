@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hoffer.test.callhistory.R;
+import com.hoffer.test.callhistory.model.CallLog;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SortFragment extends Fragment {
+public class SortFragment extends Fragment implements OnDataLoadListener{
 
 
     public SortFragment() {
@@ -27,4 +30,18 @@ public class SortFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_sort, container, false);
     }
 
+    @Override
+    public void onLoaded(List<CallLog> logs) {
+
+    }
+
+    @Override
+    public void onAddLog(CallLog log) {
+
+    }
+
+    @Override
+    public void onRemoveLog(CallLog log) {
+
+    }
 }

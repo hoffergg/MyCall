@@ -14,4 +14,8 @@ public interface OnDataLoadListener {
      * @param logs
      */
     void onLoaded(List<CallLog> logs);
+
+    void onAddLog(CallLog log);
+
+    void onRemoveLog(CallLog log);
 }

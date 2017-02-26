@@ -45,6 +45,16 @@ public class MainActivity extends AppCompatActivity implements OnDataLoadListene
 
     @Override
     public void onLoaded(List<CallLog> logs) {
+        mSortFragment
+    }
+
+    @Override
+    public void onAddLog(CallLog log) {
+
+    }
+
+    @Override
+    public void onRemoveLog(CallLog log) {
 
     }
 
