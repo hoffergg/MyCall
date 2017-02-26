@@ -17,14 +17,14 @@ import com.hoffer.test.callhistory.R;
 import com.hoffer.test.callhistory.model.CallLog;
 import com.hoffer.test.callhistory.task.ReadDataTask;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * fragment of call logs.
  */
-public class LogFragment extends Fragment implements OnDataLoadListener{
-    private OnDataLoadListener mLoadListener;
-    private String fileName = "original.txt";
+public class LogFragment extends Fragment implements ILogView{
+    private ILogView mLogView;
     private RecyclerView mListView;
     private CallLogAdapter mAdapter;
     private List<CallLog> mLogs;
@@ -32,14 +32,11 @@ public class LogFragment extends Fragment implements OnDataLoadListener{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof OnDataLoadListener)
-            mLoadListener = (OnDataLoadListener) context;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ReadDataTask(this,getActivity()).execute(fileName);
     }
 
     public LogFragment() {
@@ -64,22 +61,34 @@ public class LogFragment extends Fragment implements OnDataLoadListener{
         mListView.setAdapter(mAdapter);
     }
 
-    @Override
-    public void onLoaded(List<CallLog> logs) {
-        if(mProgressBar!=null)
-            mProgressBar.setVisibility(View.GONE);
-        showLogs(logs);
-        if(mLoadListener!=null)
-            mLoadListener.onLoaded(logs);
-    }
-
     /**
      * show logs
      * @param logs
      */
+    @Override
     public void showLogs(List<CallLog> logs){
-        mLogs = logs;
+        if(mProgressBar!=null)
+            mProgressBar.setVisibility(View.GONE);
+        mLogs = new ArrayList<>();
+        mLogs.addAll(logs);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void addLog(CallLog log) {
+        mLogs.add(log);
+        mAdapter.notifyItemInserted(mLogs.size());
+    }
+
+    @Override
+    public void removeLog(CallLog log) {
+        for(int i=0;i<mLogs.size();i++){
+            if(mLogs.get(i).toString().equals(log.toString())){
+                mLogs.remove(i);
+                mAdapter.notifyItemRemoved(i);
+                break;
+            }
+        }
     }
 
     public class CallLogAdapter extends RecyclerView.Adapter<MyViewHolder>{

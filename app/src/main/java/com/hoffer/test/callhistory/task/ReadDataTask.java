@@ -2,10 +2,9 @@ package com.hoffer.test.callhistory.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.telecom.Call;
 
 import com.hoffer.test.callhistory.model.CallLog;
-import com.hoffer.test.callhistory.ui.OnDataLoadListener;
+import com.hoffer.test.callhistory.ui.ILogView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,11 +17,11 @@ import java.util.List;
  */
 
 public class ReadDataTask extends AsyncTask<String, Integer, List<CallLog>> {
-    OnDataLoadListener mListener;
+    ILogView mLogView;
     Context mContext;
 
-    public ReadDataTask(OnDataLoadListener mListener, Context mContext) {
-        this.mListener = mListener;
+    public ReadDataTask(ILogView mLogView, Context mContext) {
+        this.mLogView = mLogView;
         this.mContext = mContext;
     }
 
@@ -61,7 +60,7 @@ public class ReadDataTask extends AsyncTask<String, Integer, List<CallLog>> {
     @Override
     protected void onPostExecute(List<CallLog> calls) {
         super.onPostExecute(calls);
-        mListener.onLoaded(calls);
+        mLogView.showLogs(calls);
     }
 
     @Override
